@@ -162,13 +162,13 @@ cp  $uchinanchu/pepcal/calamares/settings.conf $uchinanchu/fusato/config/include
 cp -r $uchinanchu/pepdesktopbase/desktop-base $uchinanchu/fusato/config/includes.chroot/usr/share/
 cp -r $uchinanchu/pepicons/Flat-Remix-Red-Dark $uchinanchu/fusato/config/includes.chroot/usr/share/icons
 cp -r $uchinanchu/pepicons/Obsidian-Red $uchinanchu/fusato/config/includes.chroot/usr/share/icons
+cp -r $uchinanchu/peptheme/Arc-Dark $uchinanchu/fusato/config/includes.chroot/usr/share/themes
+cp -r $uchinanchu/peptheme/Arc-Red-Dark $uchinanchu/fusato/config/includes.chroot/usr/share/themes
+cp -r $uchinanchu/peptheme/Peppermint-10-Red-Dark $uchinanchu/fusato/config/includes.chroot/usr/share/themes
 cp -r $uchinanchu/peplightdm/lightdm.conf.d $uchinanchu/fusato/config/includes.chroot/usr/share/lightdm
 cp -r $uchinanchu/peplightdm/lightdm-gtk-greeter.conf.d $uchinanchu/fusato/config/includes.chroot/usr/share/lightdm
 cp -r $uchinanchu/peppermint/peppermint $uchinanchu/fusato/config/includes.chroot/usr/share/
 cp -r $uchinanchu/pepplymouth/plymouth $uchinanchu/fusato/config/includes.chroot/usr/share/
-cp -r $uchinanchu/peptheme/Arc-Dark $uchinanchu/fusato/config/includes.chroot/usr/share/themes
-cp -r $uchinanchu/peptheme/Arc-Red-Dark $uchinanchu/fusato/config/includes.chroot/usr/share/themes
-cp -r $uchinanchu/peptheme/Peppermint-10-Red-Dark $uchinanchu/fusato/config/includes.chroot/usr/share/themes
 cp -r $uchinanchu/pepcal/calamares/branding $uchinanchu/fusato/config/includes.chroot/etc/calamares
 cp -r $uchinanchu/pepcal/calamares/modules $uchinanchu/fusato/config/includes.chroot/etc/calamares
 
