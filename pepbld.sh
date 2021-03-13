@@ -1,7 +1,7 @@
 #!/bin/bash
 #Set the working folder variable
 uchinanchu="$(pwd)"
-#the name of the working folder
+#the name of the iso working folder
 mkdir fusato
 cd fusato
 
