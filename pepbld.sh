@@ -151,7 +151,7 @@ mkdir -p $uchinanchu/fusato/config/includes.chroot/etc/apt
 mkdir -p $uchinanchu/fusato/config/includes.chroot/etc/calamares
 mkdir -p $uchinanchu/fusato/config/includes.chroot/etc/default
 mkdir -p $uchinanchu/fusato/config/includes.chroot/etc/skel
-
+#Moving the stuff that we will use on the ISO#
 cp $uchinanchu/pepwallpaper/* $uchinanchu/fusato/config/includes.chroot/usr/share/backgrounds
 cp $uchinanchu/pepiconsdf/* $uchinanchu/fusato/config/includes.chroot/usr/share/icons/default
 cp $uchinanchu/peppixmaps/*  $uchinanchu/fusato/config/includes.chroot/usr/share/pixmaps
