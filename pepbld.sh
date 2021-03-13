@@ -20,7 +20,7 @@ cd fusato
 #--cache true 
 ##true|false defines globally if any cache should be used at all. Different caches can be controlled through the their own options.
 
-#--distribution buster 
+#--distribution bullseye 
 ##CODENAME defines the distribution of the resulting live system.
 
 #--debian-installer live 
@@ -34,11 +34,6 @@ cd fusato
 
 #--linux-flavours amd64
 ##FLAVOUR|"FLAVOURS" sets the kernel flavours to be installed. Note that in case you specify more than that the first will be configured the default kernel that gets booted. Optionally you can use an architecture qualifier, e.g. amd64:amd64. Given an i386 system you can enable amd64 foreign architecture thanks to the commands: "dpkg --add-architecture amd64 ; apt-get update". This enables you to use "686 amd64:amd64" as a linux flavour. The amd64 kernel will be installed alongside the i386's 686 kernel.
-
-#--mirror-chroot-security deb http://security.debian.org/debian-security buster-security main contrib non-free
-##URLsets the location of the debian security package mirror that will be used to fetch the packages of the derivative in order to build the live system. By default, this points to http://security.debian.org/.
-
-#--mirror-binary-security deb http://security.debian.org/debian-security buster-security main contrib non-free
 
 ##URL sets the location of the derivatives security package mirror that should end up configured in the final image. This defaults to http://security.debian.org/.
 #--mode debian
@@ -64,21 +59,17 @@ lb config \
 --binary-images iso-hybrid \
 --binary-filesystem ext4 \
 --cache true \
---distribution buster \
+--distribution bullseye \
 --linux-flavours amd64 \
---mirror-binary-security http://security.debian.org/debian-security buster-security main contrib non-free \
---mirror-chroot-security http://security.debian.org/debian-security buster-security main contrib non-free \
 --iso-volume PepDeb11 \
 --initramfs live-boot \
 --firmware-binary true \
 --firmware-chroot true \
 --security false \
 --updates true \
---win32-loader true \
+--win32-loader false \
 
-#--debian-installer live \#
-#--debian-installer-distribution buster \#
-#--debian-installer-gui true \#
+#Not used at the moment##
 ##Commented..Have not yest decided to use them yet.##
 #--checksums sha256 \#
 #--clean \#
@@ -86,25 +77,58 @@ lb config \
 #--iso-application Peppermint Live \#
 #--iso-preparer PeppermintOS-https://peppermintos.com/ \#
 #--iso-publisher PeppermintOS-https://forum.peppermintos.com/ #
+#--debian-installer live \#
+#--debian-installer-distribution bullseye \#
+#--debian-installer-gui true  \#
 ##
 
 # Install the XFCE Desktop 
-echo xfce4 > $uchinanchu/fusato/config/package-lists/desktop.list.chroot
+echo xfce4 > $uchinanchu/fusato/config/package-lists/desktop.list.chroot \
 # Install software
 echo \
+arandr \
+arc-theme \
 calamares-settings-debian \
 calamares \
-> $uchinanchu/fusato/config/package-lists/packages.list.chroot \
+curl \
+dconf-editor \
+dkms \
+gnome-disk-utility \
+gufw \
+gvfs-backends \
+firmware-linux-nonfree \
+firmware-linux \
+firmware-misc-nonfree \
+firmware-realtek \
+firmware-atheros \
+firmware-bnx2 \
+firmware-bnx2x \
+firmware-brcm80211 \
+firmware-intelwimax \
+firmware-libertas \
+firmware-netxen \
+firmware-zd1211 \
+menulibre \
+mugshot \
+neofetch \
+nemo \
+screenfetch \
+xfce4-goodies \
+yad \
+> $uchinanchu/fusato/config/package-lists/packages.list.chroot
+
+
+#> $uchinanchu/fusato/config/package-lists/packages.list.chroot \#
 #this section install all the boot files.....
 echo \
+efibootmgr \
 grub-common \
 grub2-common \
-grub-pc-bin \
-efibootmgr \
 grub-efi-amd64 \
 grub-efi-amd64-bin \
 grub-efi-amd64-signed \
 grub-efi-ia32-bin \
+grub-pc-bin \
 libefiboot1 \
 libefivar1 \
 mokutil \
@@ -112,6 +136,47 @@ shim-helpers-amd64-signed \
 shim-signed-common \
 shim-unsigned \
 > $uchinanchu/fusato/config/package-lists/grubuefi.list.binary \
+
+#Setup the chroot structure
+#mkdir -p $uchinanchu/fusato/config/includes.chroot/usr/share/applications#
+mkdir -p $uchinanchu/fusato/config/includes.chroot/usr/share/backgrounds
+mkdir -p $uchinanchu/fusato/config/includes.chroot/usr/share/desktop-base
+mkdir -p $uchinanchu/fusato/config/includes.chroot/usr/share/icons/default
+mkdir -p $uchinanchu/fusato/config/includes.chroot/usr/share/themes
+mkdir -p $uchinanchu/fusato/config/includes.chroot/usr/share/lightdm
+mkdir -p $uchinanchu/fusato/config/includes.chroot/usr/share/peppermint
+mkdir -p $uchinanchu/fusato/config/includes.chroot/usr/share/pixmaps
+mkdir -p $uchinanchu/fusato/config/includes.chroot/usr/share/plymouth
+mkdir -p $uchinanchu/fusato/config/includes.chroot/etc/apt
+mkdir -p $uchinanchu/fusato/config/includes.chroot/etc/calamares
+mkdir -p $uchinanchu/fusato/config/includes.chroot/etc/default
+mkdir -p $uchinanchu/fusato/config/includes.chroot/etc/skel
+
+cp $uchinanchu/pepwallpaper/* $uchinanchu/fusato/config/includes.chroot/usr/share/backgrounds
+cp $uchinanchu/pepiconsdf/* $uchinanchu/fusato/config/includes.chroot/usr/share/icons/default
+cp $uchinanchu/peppixmaps/*  $uchinanchu/fusato/config/includes.chroot/usr/share/pixmaps
+cp $uchinanchu/pepgrub/* $uchinanchu/fusato/config/includes.chroot/etc/default
+cp $uchinanchu/pepissue/* $uchinanchu/fusato/config/includes.chroot/etc/
+cp $uchinanchu/pepsources/* $uchinanchu/fusato/config/includes.chroot/etc/apt
+cp  $uchinanchu/pepcal/calamares/settings.conf $uchinanchu/fusato/config/includes.chroot/etc/calamares
+cp -r $uchinanchu/pepdesktopbase/desktop-base $uchinanchu/fusato/config/includes.chroot/usr/share/
+cp -r $uchinanchu/pepicons/Flat-Remix-Red-Dark $uchinanchu/fusato/config/includes.chroot/usr/share/icons
+cp -r $uchinanchu/pepicons/Obsidian-Red $uchinanchu/fusato/config/includes.chroot/usr/share/icons
+cp -r $uchinanchu/peplightdm/lightdm.conf.d $uchinanchu/fusato/config/includes.chroot/usr/share/lightdm
+cp -r $uchinanchu/peplightdm/lightdm-gtk-greeter.conf.d $uchinanchu/fusato/config/includes.chroot/usr/share/lightdm
+cp -r $uchinanchu/peppermint/peppermint $uchinanchu/fusato/config/includes.chroot/usr/share/
+cp -r $uchinanchu/pepplymouth/plymouth $uchinanchu/fusato/config/includes.chroot/usr/share/
+cp -r $uchinanchu/peptheme/Arc-Dark $uchinanchu/fusato/config/includes.chroot/usr/share/themes
+cp -r $uchinanchu/peptheme/Arc-Red-Dark $uchinanchu/fusato/config/includes.chroot/usr/share/themes
+cp -r $uchinanchu/peptheme/Peppermint-10-Red-Dark $uchinanchu/fusato/config/includes.chroot/usr/share/themes
+cp -r $uchinanchu/pepcal/calamares/branding $uchinanchu/fusato/config/includes.chroot/etc/calamares
+cp -r $uchinanchu/pepcal/calamares/modules $uchinanchu/fusato/config/includes.chroot/etc/calamares
+
+
+#Set the access permissions to things.#
+chmod -R ugo+rw $uchinanchu/fusato 
+
+
 
 #build the ISO
 lb build
